@@ -1,0 +1,53 @@
+.Card {
+  display: inline-block;
+  width: calc(48vw - 40px);
+  box-sizing: border-box;
+  border-radius: 3px;
+  text-align: center;
+  background: white;
+  padding: 20px;
+  margin: 20px;
+  page-break-inside: avoid;
+  font-size: 1vw;
+  h1 {
+    margin: 0 20px 20px;
+    font-size: 1.2em;
+  }
+}
+
+.Grid {
+  display: grid;
+  border: 1px solid black;
+  border-width: 1px 0 0 1px;
+  border-radius: .25rem;
+  overflow: hidden;
+  > * {
+    box-sizing: border-box;
+    position: relative;
+    background: white;
+    border: 1px solid black;
+    border-width: 0 1px 1px 0;
+    &:before {
+      content: '';
+      display: inline-block;
+      vertical-align: top;
+      width: 1px;
+      height: 0;
+      padding-bottom: 100%;
+    }
+    > * {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1em;
+    }
+    &:last-child {
+      border-bottom-right-radius: .25rem;
+    }
+  }
+}

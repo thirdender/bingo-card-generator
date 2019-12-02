@@ -1,0 +1,56 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+}
+
+.Form {
+  margin: 40px;
+  display: flex;
+  @media print {
+    display: none;
+  }
+}
+
+.Items {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 1.4em;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin-left: 20px;
+  background: white;
+  border-radius: .25rem;
+  > div {
+    flex: 1;
+    margin-top: 1.4em;
+    position: relative;
+    > div {
+      overflow: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+  ul {
+    margin-top: 0;
+    li {
+      display: flex;
+      justify-content: space-between;
+      button {
+        border: 0;
+        background: none;
+        margin: -.6rem -1.1rem -.6rem 1em;
+        padding: .6rem 1.1rem;
+        font-size: 1.2em;
+        color: #444;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.Cards {
+  text-align: center;
+  margin: 20px 0;
+}
