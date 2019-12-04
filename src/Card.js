@@ -31,28 +31,41 @@ const sfc32 = (a, b, c, d) => {
   }
 };
 
-const Card = ({ title, freeText, items, seed, width, height }) => {
+const Card = ({ title, freeText, freeTextCentered, items, seed, width, height, fontSize }) => {
+  // Seed the PRNG with the card index so that the order of output is always
+  // randomized the same way per card
   const seedGenerator = xmur3(String(seed));
   const rand = sfc32(seedGenerator(), seedGenerator(), seedGenerator(), seedGenerator());
+
+  // Write the items into a new `randomized` array that can be "sorted" by the
+  // output of the PRNG
   const randomized = [];
   const arrSize = width * height;
   while (randomized.length < arrSize) {
-    items.forEach((item) => {
-      if (randomized.length < arrSize) {
-        randomized.push(item);
-      }
-    });
+    items.forEach((item) => randomized.push(item));
   }
   randomized.sort((a, b) => rand() < .5 ? -1 : 1);
+
+  // Add a "FREE" cell in either a random or static location
+  const freeTextRandom = rand();
+  if (freeText) {
+    const freeTextLocation = freeTextCentered ?
+      (Math.floor(height / 2) * width) + Math.floor(width / 2) :
+      Math.floor(freeTextRandom * arrSize);
+    randomized.splice(freeTextLocation, 0, freeText);
+  }
+
   return (
-    <div className={styles.Card}>
-      <h1>{title}</h1>
-      <div className={styles.Grid} style={{ gridTemplateColumns: `repeat(${width}, 1fr)` }}>
-        { randomized.map((item, index) =>
-          <div key={rand()}>
-            <div>{item}</div>
-          </div>
-        ) }
+    <div className={styles.Center}>
+      <div className={styles.Card}>
+        <h1>{title}</h1>
+        <div className={styles.Grid} style={{ gridTemplateColumns: `repeat(${width}, 1fr)`, fontSize: `${fontSize}%` }}>
+          { randomized.slice(0, arrSize).map((item, index) =>
+            <div key={rand()}>
+              <div>{item}</div>
+            </div>
+          ) }
+        </div>
       </div>
     </div>
   );

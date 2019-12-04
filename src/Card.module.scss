@@ -1,13 +1,31 @@
+.Center {
+  display: inline-block;
+  page-break-inside: avoid;
+  width: calc(98vw - 40px);
+  margin: 20px;
+  @media (min-aspect-ratio: 1/1) {
+    width: calc(48vw - 40px);
+  }
+  @media print {
+    margin-top: 0;
+    margin-bottom: 0;
+    &:before {
+      content: '';
+      display: inline-block;
+      height: calc(100vh - 40px);
+      vertical-align: middle;
+    }
+  }
+}
 .Card {
   display: inline-block;
-  width: calc(48vw - 40px);
+  vertical-align: middle;
+  width: 100%;
+  padding: 20px;
   box-sizing: border-box;
   border-radius: 3px;
   text-align: center;
   background: white;
-  padding: 20px;
-  margin: 20px;
-  page-break-inside: avoid;
   font-size: 1vw;
   h1 {
     margin: 0 20px 20px;
